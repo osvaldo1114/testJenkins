@@ -16,7 +16,7 @@ if (branchName == 'master') {
 pipeline {
 	agent any
 	environment {
-		ENV_NAME = envName
+		ENV_NAME = '' + envName
 	}
 	tools {
 		maven "apache-maven-3.8.6"
