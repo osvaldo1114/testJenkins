@@ -1,9 +1,12 @@
-def BRANCH_NAME = GIT_BRANCH.split("/")[1]
+def BRANCH_NAME = scm.branches[0].name
+if (BRANCH_NAME.contains("*/")) {
+    BRANCH_NAME = BRANCH_NAME.split("\\*/")[1]
+    }
 
 if (BRANCH_NAME == 'master') {
 	ENV_NAME = 'prod'
 } else if (BRANCH_NAME == 'qa') {
-	ENV_NAME = 'qa'
+	ENV_NAME = 'staging'
 } else {
 	ENV_NAME = 'dev'
 }
