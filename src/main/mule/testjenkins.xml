@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"message": "Hola Michi 3"
+	"message": "Hola " ++ attributes.queryParams.name ++ " de parte de Michi Taco"
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
