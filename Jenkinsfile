@@ -37,8 +37,8 @@ pipeline {
             }
             steps {
             	withCredentials([
-            		string(credentialsId: 'server_name_${envName}', variable: 'SERVER_NAME'),
-            		string(credentialsId: 'server_type_${envName}', variable: 'SERVER_TYPE')
+            		string(credentialsId: 'server_name_' + envName, variable: 'SERVER_NAME'),
+            		string(credentialsId: 'server_type_' + envName', variable: 'SERVER_TYPE')
             	]){
                 	echo 'Deploying mule project due to the latest code commit…'
                 	echo 'Environment: ' + envName
