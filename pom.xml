@@ -36,7 +36,7 @@
 						<muleVersion>${app.runtime}</muleVersion>
 						<username>${username}</username>
 						<password>${password}</password>
-						<applicationName>${project.artifactId}</applicationName>
+						<applicationName>${project.artifactId}-${env}</applicationName>
 						<environment>${env}</environment>
 						<workerType>${workerType}</workerType>
 						<workers>1</workers>
