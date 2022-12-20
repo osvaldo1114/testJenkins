@@ -34,15 +34,18 @@ pipeline {
         stage('Deploy to ARM') {
             environment {
                 ANYPOINT_CREDENTIALS = credentials('anypointPlatform')
-                SERVER_NAME = credentials('server_name_' + envName)
-                SERVER_TYPE = credentials('server_type_' + envName)
             }
             steps {
-                echo 'Deploying mule project due to the latest code commit…'
-                echo 'Environment: ' + envName
-                echo 'Server Name: ' + SERVER_NAME
-                echo 'Server Type: ' + SERVER_TYPE
-                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -Dtarget=${SERVER_NAME} -Dtarget.type=${SERVER_TYPE} -Denv=' + envName
+            	withCredentials([
+            		string(credentialsId: 'server_name_${envName}', variable: 'SERVER_NAME'),
+            		string(credentialsId: 'server_type_${envName}', variable: 'SERVER_TYPE')
+            	]){
+                	echo 'Deploying mule project due to the latest code commit…'
+                	echo 'Environment: ' + envName
+                	echo 'Server Name: ' + SERVER_NAME
+                	echo 'Server Type: ' + SERVER_TYPE
+                	sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -Dtarget=${SERVER_NAME} -Dtarget.type=${SERVER_TYPE} -Denv=' + envName
+                }
             }
         }
 	}
