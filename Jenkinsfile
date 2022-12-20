@@ -31,14 +31,18 @@ pipeline {
             }
         
         }
-        stage('Deploy CloudHub') {
+        stage('Deploy to ARM') {
             environment {
                 ANYPOINT_CREDENTIALS = credentials('anypointPlatform')
+                SERVER_NAME = credentials('server_name_' + envName)
+                SERVER_TYPE = credentials('server_type_' + envName)
             }
             steps {
                 echo 'Deploying mule project due to the latest code commit…'
                 echo 'Environment: ' + envName
-                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2 -Denv=' + envName
+                echo 'Server Name: ' + SERVER_NAME
+                echo 'Server Type: ' + SERVER_TYPE
+                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -Dtarget=${SERVER_NAME} -Dtarget.type=${SERVER_TYPE} -Denv=' + envName
             }
         }
 	}
