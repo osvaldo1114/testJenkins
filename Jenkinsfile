@@ -37,8 +37,8 @@ pipeline {
             }
             steps {
                 echo 'Deploying mule project due to the latest code commit…'
-                echo 'Environment: ${envName} $envName'
-                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2 -Denv=$envName'
+                echo 'Environment: ' + envName
+                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2 -Denv=' + envName
             }
         }
 	}
