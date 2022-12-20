@@ -15,9 +15,6 @@ if (branchName == 'master') {
 
 pipeline {
 	agent any
-	environment {
-		ENV_NAME = '' + envName
-	}
 	tools {
 		maven "apache-maven-3.8.6"
 	}
@@ -40,8 +37,8 @@ pipeline {
             }
             steps {
                 echo 'Deploying mule project due to the latest code commit…'
-                echo 'Environment: ' + ENV_NAME
-                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2 -Denv=${ENV_NAME}'
+                echo 'Environment: ${envName} $envName'
+                sh 'mvn deploy -DmuleDeploy -Dusername=${ANYPOINT_CREDENTIALS_USR} -Dpassword=${ANYPOINT_CREDENTIALS_PSW} -DworkerType=Micro -Dworkers=1 -Dregion=us-west-2 -Denv=$envName'
             }
         }
 	}
