@@ -1,20 +1,23 @@
-def BRANCH_NAME = scm.branches[0].name
-if (BRANCH_NAME.contains("*/")) {
-    BRANCH_NAME = BRANCH_NAME.split("\\*/")[1]
+def branchName = scm.branches[0].name
+if (branchName.contains("*/")) {
+    branchName = branchName.split("\\*/")[1]
     }
 
-def ENV_NAME = 'dev'
+def envName = 'dev'
 
-if (BRANCH_NAME == 'master') {
-	ENV_NAME = 'prod'
-} else if (BRANCH_NAME == 'qa') {
-	ENV_NAME = 'staging'
+if (branchName == 'master') {
+	envName = 'prod'
+} else if (branchName == 'qa') {
+	envName = 'staging'
 } else {
-	ENV_NAME = 'dev'
+	envName = 'dev'
 }
 
 pipeline {
 	agent any
+	environment {
+		ENV_NAME = envName
+	}
 	tools {
 		maven "apache-maven-3.8.6"
 	}
