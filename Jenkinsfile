@@ -1,13 +1,12 @@
 def BRANCH_NAME = GIT_BRANCH.split("/")[1]
 
-IF (BRANCH_NAME == 'master') {
+if (BRANCH_NAME == 'master') {
 	ENV_NAME = 'prod'
-} else IF (BRANCH_NAME == 'qa') {
+} else if (BRANCH_NAME == 'qa') {
 	ENV_NAME = 'qa'
 } else {
 	ENV_NAME = 'dev'
 }
-
 
 pipeline {
 	agent any
